@@ -21,6 +21,24 @@ yo 360-photo
 
 360-photo generator will detect your image and generate the scaffold for web hosting this 360 photo.
 
+## Change default view orientation
+
+You can change default view orientation to better present the view you want visitors to see at first.
+
+Edit the [rotation](https://aframe.io/docs/0.3.0/components/rotation.html) attribute in `a-sky` tag to specify the orientation of the photo.
+
+```
+<a-sky src="#img" rotation="0 0 0"></a-sky>
+```
+
+The 3 values in `rotation` are the roll (x), pitch (y), and yaw (z).
+My suggestion is DO NOT edit the first value (roll), it will change the default horizontal, which makes navigation weired.
+
+## Enhancement
+
+The scaffold is fully based on [aframe](https://aframe.io/), the web framework for builing VR experience. 
+You can refer aframe to move your 360 photo to the new level.
+
 ## License
 
 MIT © [gasolin](www.gasolin.idv.tw)
