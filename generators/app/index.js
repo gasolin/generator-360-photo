@@ -60,7 +60,6 @@ module.exports = yeoman.Base.extend({
   },
 
   writing: function () {
-    var resize = 2048;
     // create img folder if not exist
     var dir = 'img';
     if (!fs.existsSync(dir)) {
@@ -70,20 +69,30 @@ module.exports = yeoman.Base.extend({
     var filename = path.basename(this.props.imgPath);
     var optimizedImgPath = [dir, filename].join('/');
     var image = sharp(this.props.imgPath);
-    image.metadata().then(function (metadata) {
-      var size = metadata.width > resize ? resize : metadata.width;
+
+    var embedded = '';
+    var resize = 2048;
+    if (this.props.embedded) {
+      embedded = ' embedded';
+
+      // only resize image when in embedded mode
+      image.metadata().then(function (metadata) {
+        var size = metadata.width > resize ? resize : metadata.width;
+        image
+          .resize(size)
+          .quality(90)
+          .trellisQuantisation()
+          .overshootDeringing()
+          .optimizeScans()
+          .toFile(optimizedImgPath);
+      });
+    } else {
       image
-        .resize(size)
         .quality(90)
         .trellisQuantisation()
         .overshootDeringing()
         .optimizeScans()
         .toFile(optimizedImgPath);
-    });
-
-    var embedded = '';
-    if (this.props.embedded) {
-      embedded = ' embedded';
     }
 
     this.fs.copyTpl(
