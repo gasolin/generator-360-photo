@@ -1,6 +1,7 @@
 # generator-360-photo [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage percentage][coveralls-image]][coveralls-url]
 > Create a web based 360 photo scaffold with aframe, you can host it on github pages or any static web hosting
 
+You don't need upload your 360 photo to Facebook to share with others. All you need is a static web hosting (ex: github page) and generator-360-photo.
 
 ## Installation
 
@@ -19,7 +20,37 @@ Enter the folder then generate your project:
 yo 360-photo
 ```
 
-360-photo generator will detect your image and generate the scaffold for web hosting this 360 photo.
+generator-360-photo will guide you to generate the scaffold for web hosting this 360 photo.
+
+
+## Example
+
+```sh
+$ yo 360-photo
+
+     _-----_     ╭──────────────────────────╮
+    |       |    │      Welcome to the      │
+    |--(o)--|    │    generator-360-photo   │
+   `---------´   │        generator!        │
+    ( _´U`_ )    ╰──────────────────────────╯
+    /___A___\   /
+     |  ~  |
+   __'.___.'__
+ ´   `  |° ´ Y `
+
+? Where's your photo's path? 2016-06-06_21.50.35.jpg
+? Enter your photo's title 360 photo
+? Enter the file name photo
+? Would you embed this photo within a iframe? Yes
+? Would you like to create 360 photo scaffold in this folder? Yes
+   create photo.html
+```
+
+
+### what does embedded mean?
+
+Refer to [aframe](https://aframe.io/docs/0.3.0/components/embedded.html), The generated scaffold will not contain fullscreen style when say yes.
+
 
 ## Change default view orientation
 

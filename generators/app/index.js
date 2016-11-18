@@ -3,7 +3,9 @@ var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var yosay = require('yosay');
 var fs = require('fs');
+var path = require('path');
 var sanitize = require('sanitize-filename');
+var sharp = require('sharp');
 
 module.exports = yeoman.Base.extend({
   prompting: function () {
@@ -17,7 +19,7 @@ module.exports = yeoman.Base.extend({
       type: 'input',
       name: 'imgPath',
       message: 'Where\'s your photo\'s path?',
-      default: 'img/photo.jpg',
+      default: 'photo.jpg',
       validate: function (path) {
         var valid = false;
         try {
@@ -40,6 +42,11 @@ module.exports = yeoman.Base.extend({
       default: 'photo'
     }, {
       type: 'confirm',
+      name: 'embedded',
+      message: 'Would you embed this photo within a iframe?',
+      default: true
+    }, {
+      type: 'confirm',
       name: 'someAnswer',
       message: 'Would you like to create 360 photo scaffold in this folder?',
       default: true
@@ -53,11 +60,37 @@ module.exports = yeoman.Base.extend({
   },
 
   writing: function () {
+    // create img folder if not exist
+    var dir = 'img';
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir);
+    }
+
+    var filename = path.basename(this.props.imgPath);
+    var optimizedImgPath = [dir, filename].join('/');
+    var image = sharp(this.props.imgPath);
+    image.metadata().then(function (metadata) {
+      var size = metadata.width > 2048 ? 2048 : metadata.width;
+      image
+        .resize(size)
+        .quality(90)
+        .trellisQuantisation()
+        .overshootDeringing()
+        .optimizeScans()
+        .toFile(optimizedImgPath);
+    });
+
+    var embedded = '';
+    if (this.props.embedded) {
+      embedded = ' embedded';
+    }
+
     this.fs.copyTpl(
       this.templatePath('_photo.html'),
       this.destinationPath(sanitize(this.props.filename).replace(' ', '-') + '.html'), {
-        imgPath: this.props.imgPath,
-        title: this.props.title
+        imgPath: optimizedImgPath,
+        title: this.props.title,
+        embedded: embedded
       }
     );
   },
