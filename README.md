@@ -46,8 +46,9 @@ $ yo 360-photo
    create photo.html
 ```
 
+generator-360-photo also do the image optimize and resizing for you. The sample image size is optimized dramatically from 5.62MB(5660x2830) to 481KB(2048x1024).
 
-### what does embedded mean?
+## What does embedded mean?
 
 Refer to [aframe](https://aframe.io/docs/0.3.0/components/embedded.html), The generated scaffold will not contain fullscreen style when say yes.
 
