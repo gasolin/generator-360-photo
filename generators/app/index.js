@@ -2,6 +2,8 @@
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var yosay = require('yosay');
+var fs = require('fs');
+var sanitize = require('sanitize-filename');
 
 module.exports = yeoman.Base.extend({
   prompting: function () {
@@ -15,7 +17,17 @@ module.exports = yeoman.Base.extend({
       type: 'input',
       name: 'imgPath',
       message: 'Where\'s your photo\'s path?',
-      default: 'img/photo.jpg'
+      default: 'img/photo.jpg',
+      validate: function (path) {
+        var valid = false;
+        try {
+          fs.accessSync(path, fs.F_OK);
+          valid = true;
+        } catch (e) {
+          // It isn't accessible
+        }
+        return valid || 'Please enter a valid path';
+      }
     }, {
       type: 'input',
       name: 'title',
@@ -43,14 +55,10 @@ module.exports = yeoman.Base.extend({
   writing: function () {
     this.fs.copyTpl(
       this.templatePath('_photo.html'),
-      this.destinationPath(this.props.filename + '.html'), {
+      this.destinationPath(sanitize(this.props.filename).replace(' ', '-') + '.html'), {
         imgPath: this.props.imgPath,
         title: this.props.title
       }
-    );
-    this.fs.copy(
-      this.templatePath('img'),
-      this.destinationPath('img')
     );
   },
 
