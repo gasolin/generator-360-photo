@@ -79,8 +79,7 @@ You can refer aframe to move your 360 photo to the new level.
 
 ## License
 
-MIT © [gasolin](www.gasolin.idv.tw)
-
+Copyright (c) 2016 Fred Lin (twitter: @gasolin) Licensed under the MIT license.
 
 [npm-image]: https://badge.fury.io/js/generator-360-photo.svg
 [npm-url]: https://npmjs.org/package/generator-360-photo
