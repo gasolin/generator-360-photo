@@ -25,6 +25,11 @@ generator-360-photo will guide you to generate the scaffold for web hosting this
 
 ## Example
 
+Here is the [Blog Post](http://blog.gasolin.idv.tw/2016/11/17/360-photo/) embeded the 360 photo in iframe, which is hosted on github page.
+
+
+Here is the setting process
+
 ```sh
 $ yo 360-photo
 
@@ -46,7 +51,8 @@ $ yo 360-photo
    create photo.html
 ```
 
-generator-360-photo also do the image optimize and resizing for you. The sample image size is optimized dramatically from 5.62MB(5660x2830) to 481KB(2048x1024).
+generator-360-photo also do the image optimize and resizing for you. The sample image size is optimized dramatically from 5.62MB(5660x2830) to 481KB(2048x1024) when you choose embeded the photo. 
+The photo will keep the same size when not embeded.
 
 ## What does embedded mean?
 
