@@ -60,6 +60,7 @@ module.exports = yeoman.Base.extend({
   },
 
   writing: function () {
+    var resize = 2048;
     // create img folder if not exist
     var dir = 'img';
     if (!fs.existsSync(dir)) {
@@ -70,7 +71,7 @@ module.exports = yeoman.Base.extend({
     var optimizedImgPath = [dir, filename].join('/');
     var image = sharp(this.props.imgPath);
     image.metadata().then(function (metadata) {
-      var size = metadata.width > 2048 ? 2048 : metadata.width;
+      var size = metadata.width > resize ? resize : metadata.width;
       image
         .resize(size)
         .quality(90)
