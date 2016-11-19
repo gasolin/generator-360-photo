@@ -1,6 +1,6 @@
 {
   "name": "generator-360-photo",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Create a web based 360 photo scaffold with aframe, you can host it on github pages or any static web hosting",
   "homepage": "https://github.com/gasolin/generator-360-photo",
   "author": {
