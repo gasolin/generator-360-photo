@@ -13,7 +13,7 @@ module.exports = yeoman.Base.extend({
     var done = this.async();
     // Have Yeoman greet the user.
     this.log(yosay(
-      'Welcome to the ' + chalk.red('generator-360-photo') + ' generator!'
+      'Welcome to the ' + chalk.yellow('generator-360-photo') + ' generator!'
     ));
 
     this.log('finding photos in this folder...');
