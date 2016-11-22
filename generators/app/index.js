@@ -99,6 +99,10 @@ module.exports = yeoman.Base.extend({
   },
 
   writing: function () {
+    if (!this.props.someAnswer) {
+      this.log(chalk.yellow('No change is made. See you later.'));
+      return;
+    }
     // create img folder if not exist
     var dir = 'img';
     if (!fs.existsSync(dir)) {
@@ -146,5 +150,9 @@ module.exports = yeoman.Base.extend({
 
   install: function () {
     // this.installDependencies();
+  },
+
+  end: function () {
+    this.log(chalk.yellow('All done, see you later.'));
   }
 });
