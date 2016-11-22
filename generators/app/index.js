@@ -114,17 +114,21 @@ module.exports = yeoman.Base.extend({
 
     var embedded = '';
     var resize = 2048;
-    if (this.props.embedded) {
-      embedded = ' embedded';
-
+    this.log(chalk.yellow(`processing image...`));
+    image.metadata().then(metadata => {
       // only resize image when in embedded mode
-      image.metadata().then(metadata => {
+      if (this.props.embedded) {
+        embedded = ' embedded';
         var size = metadata.width > resize ? resize : metadata.width;
+        this.log(chalk.yellow(`Resize image width from ${metadata.width} to ${size}`));
+
         this._optimize(image, optimizedImgPath, size);
-      });
-    } else {
-      this._optimize(image, optimizedImgPath, 0);
-    }
+      } else {
+        this.log(chalk.yellow(`Image size is ${metadata.width}x${metadata.height}`));
+        this._optimize(image, optimizedImgPath, 0);
+      }
+      this.log(chalk.yellow(`Image is optimized and copied to ${optimizedImgPath}`));
+    });
 
     this.fs.copyTpl(
       this.templatePath('_photo.html'),

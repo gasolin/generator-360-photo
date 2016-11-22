@@ -2,6 +2,7 @@
 -------------------
 
 * add no operation logs
+* add image processing logs
 
 1.2.1 (2016/11/20)
 -------------------
