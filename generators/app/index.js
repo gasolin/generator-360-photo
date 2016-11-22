@@ -7,6 +7,12 @@ var path = require('path');
 var sanitize = require('sanitize-filename');
 var sharp = require('sharp');
 var glob = require('glob');
+var exif = null;
+try {
+  exif = require('exif-reader');
+} catch (err) {
+  console.log(chalk.green('production mode'));
+}
 
 module.exports = yeoman.Base.extend({
   prompting: function () {
@@ -116,6 +122,10 @@ module.exports = yeoman.Base.extend({
     var resize = 2048;
     this.log(chalk.yellow(`processing image...`));
     image.metadata().then(metadata => {
+      if (exif) {
+        var meta = exif(metadata.exif);
+        this.log(meta);
+      }
       // only resize image when in embedded mode
       if (this.props.embedded) {
         embedded = ' embedded';

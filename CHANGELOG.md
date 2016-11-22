@@ -1,3 +1,8 @@
+1.2.3
+-------------------
+
+* show exif info when `exif-reader` module is installed (for debugging)
+
 1.2.2 (2016/11/23)
 -------------------
 

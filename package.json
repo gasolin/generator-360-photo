@@ -35,6 +35,7 @@
     "yeoman-assert": "^2.0.0",
     "eslint": "^3.1.1",
     "eslint-config-xo-space": "^0.15.0",
+    "exif-reader": "^1.0.1",
     "gulp": "^3.9.0",
     "gulp-eslint": "^3.0.1",
     "gulp-exclude-gitignore": "^1.0.0",
