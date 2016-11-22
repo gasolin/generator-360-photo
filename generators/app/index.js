@@ -90,7 +90,7 @@ module.exports = yeoman.Base.extend({
     // start create
     questions.push({
       type: 'confirm',
-      name: 'someAnswer',
+      name: 'doubleConfirm',
       message: 'Would you like to create 360 photo scaffold in this folder?',
       default: true
     });
@@ -99,8 +99,7 @@ module.exports = yeoman.Base.extend({
   },
 
   writing: function () {
-    if (!this.props.someAnswer) {
-      this.log(chalk.yellow('No change is made. See you later.'));
+    if (!this.props.doubleConfirm) {
       return;
     }
     // create img folder if not exist
@@ -119,23 +118,12 @@ module.exports = yeoman.Base.extend({
       embedded = ' embedded';
 
       // only resize image when in embedded mode
-      image.metadata().then(function (metadata) {
+      image.metadata().then(metadata => {
         var size = metadata.width > resize ? resize : metadata.width;
-        image
-          .resize(size)
-          .quality(90)
-          .trellisQuantisation()
-          .overshootDeringing()
-          .optimizeScans()
-          .toFile(optimizedImgPath);
+        this._optimize(image, optimizedImgPath, size);
       });
     } else {
-      image
-        .quality(90)
-        .trellisQuantisation()
-        .overshootDeringing()
-        .optimizeScans()
-        .toFile(optimizedImgPath);
+      this._optimize(image, optimizedImgPath, 0);
     }
 
     this.fs.copyTpl(
@@ -148,11 +136,42 @@ module.exports = yeoman.Base.extend({
     );
   },
 
+  /**
+   * wrap sharp apis.
+   * http://sharp.dimens.io/en/stable/api/
+   *
+   * @params src {string} image source path
+   * @params dst {string} image destination path
+   * @params resizing {number} target width after resize
+   */
+  _optimize: function (src, dst, resizing = 0) {
+    if (resizing === 0) {
+      src
+        .quality(90)
+        .trellisQuantisation()
+        .overshootDeringing()
+        .optimizeScans()
+        .toFile(dst);
+    } else {
+      src
+        .resize(resizing)
+        .quality(90)
+        .trellisQuantisation()
+        .overshootDeringing()
+        .optimizeScans()
+        .toFile(dst);
+    }
+  },
+
   install: function () {
     // this.installDependencies();
   },
 
   end: function () {
-    this.log(chalk.yellow('All done, see you later.'));
+    if (this.props.doubleConfirm) {
+      this.log(chalk.yellow('All done, see you later.'));
+    } else {
+      this.log(chalk.yellow('No change is made. See you later.'));
+    }
   }
 });
