@@ -1,5 +1,5 @@
 # generator-360-photo [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage percentage][coveralls-image]][coveralls-url]
-> Create a web based 360 photo scaffold with aframe, you can host it on github pages or any static web hosting
+> Generator to create a web based 360 photo scaffold with aframe
 
 You don't need upload your 360 photo to Facebook to share with others. All you need is a static web hosting (ex: github page) and generator-360-photo.
 
